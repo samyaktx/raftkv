@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package raft-kv;
+package raft_kv;
 
 // Internal volume service (coordinator -> volume)
 service VolumeInternal {
