@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Comprehensive benchmark for raft-kv distributed cluster
+# Comprehensive benchmark for raftkv distributed cluster
 
 set -euo pipefail
 
@@ -20,7 +20,7 @@ NC='\033[0m'
 
 print_banner() {
     echo -e "${BLUE}================================${NC}"
-    echo -e "${BLUE}  Raft-KV Benchmark${NC}"
+    echo -e "${BLUE}  RaftKV Benchmark${NC}"
     echo -e "${BLUE}================================${NC}"
 }
 
@@ -93,7 +93,7 @@ for i in $(seq 1 ${NUM_COORDS}); do
         fi
     done
     
-    ./target/release/raft-kv-coord serve \
+    ./target/release/raftkv-coord serve \
         --id "coord-$i" \
         --bind "127.0.0.1:${COORD_HTTP}" \
         --grpc "127.0.0.1:${COORD_GRPC}" \
@@ -115,7 +115,7 @@ for i in $(seq 1 ${NUM_VOLUMES}); do
     VOL_HTTP=$((6000 + (i-1)*2))
     VOL_GRPC=$((6001 + (i-1)*2))
     
-    ./target/release/raft-kv-volume serve \
+    ./target/release/raftkv-volume serve \
         --id "vol-$i" \
         --bind "127.0.0.1:${VOL_HTTP}" \
         --grpc "127.0.0.1:${VOL_GRPC}" \

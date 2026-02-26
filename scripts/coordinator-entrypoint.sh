@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-echo "Starting raft-kv coordinator: ${NODE_ID}"
+echo "Starting raftkv coordinator: ${NODE_ID}"
 
-exec raft-kv-coord server \
+exec raftkv-coord server \
     --id "${NODE_ID}" \
     --bind "${HTTP_BIND}" \
     --grpc "${GRPC_BIND}" \

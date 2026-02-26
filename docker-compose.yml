@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.coordinator
-    container_name: raft-kv-coord-1
+    container_name: raftkv-coord-1
     ports:
       - "5000:5000" # HTTP API
       - "5001:5001" # gRPC internal
@@ -20,7 +20,7 @@ services:
     volumes:
       -coord1-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
@@ -33,7 +33,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.coordinator
-    container_name: raft-kv-coord-2
+    container_name: raftkv-coord-2
     ports:
       - "5002:5000"
       - "5003:5001"
@@ -47,7 +47,7 @@ services:
     volumes:
       - coord2-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
@@ -60,7 +60,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.coordinator
-    container_name: raft-kv-coord-3
+    container_name: raftkv-coord-3
     ports:
       - "5004:5000"
       - "5005:5001"
@@ -74,7 +74,7 @@ services:
     volumes:
       - coord3-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
@@ -87,7 +87,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.volume
-    container_name: raft-kv-volume-1
+    container_name: raftkv-volume-1
     ports:
       - "6000:6000"   # HTTP API
       - "6001:6001"   # gRPC internal
@@ -101,7 +101,7 @@ services:
     volumes:
       - vol1-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     depends_on:
       - coord-1
@@ -116,7 +116,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.volume
-    container_name: raft-kv-volume-2
+    container_name: raftkv-volume-2
     ports:
       - "6002:6000"
       - "6003:6001"
@@ -130,7 +130,7 @@ services:
     volumes:
       - vol2-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     depends_on:
       - coord-1
@@ -145,7 +145,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.volume
-    container_name: raft-kv-volume-3
+    container_name: raftkv-volume-3
     ports:
       - "6004:6000"
       - "6005:6001"
@@ -159,7 +159,7 @@ services:
     volumes:
       - vol3-data:/data
     networks:
-      - raft-kv-net
+      - raftkv-net
     restart: unless-stopped
     depends_on:
       - coord-1
@@ -178,5 +178,5 @@ volumes:
   vol3-data:
 
 networks:
-  raft-kv-net:
+  raftkv-net:
     driver: bridge

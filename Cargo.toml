@@ -1,11 +1,11 @@
 [package]
-name = "raft-kv"
+name = "raftkv"
 version = "0.1.0"
 edition = "2021"
 authors = ["samyakt <samyakt@icloud.com>"]
 description = "A production-grade distributed key-value store with Raft consensus"
 license = "MIT"
-repository = "https://github.com/samyakx/raft-kv"
+repository = "https://github.com/samyakx/raftkv"
 keywords = ["distributed-sytems", "kv-store", "raft-consensue", "consensus"]
 categories = ["distributed-database", "network-programming"]
 rust-version = "1.75"
@@ -80,15 +80,15 @@ default = []
 heavy-tests = []
 
 [[bin]]
-name = "raft-kv-coord"
+name = "raftkv-coord"
 path = "src/bin/coord.rs"
 
 [[bin]]
-name = "raft-kv-volume"
+name = "raftkv-volume"
 path = "src/bin/volume.rs"
 
 [[bin]]
-name = "raft-kv"
+name = "raftkv"
 path = "src/bin/cli.rs"
 
 [profile.release]

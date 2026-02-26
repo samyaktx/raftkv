@@ -1,7 +1,7 @@
 .PHONY: help build test bench clean run-coord run-volume proto fmt clippy
 
 help:
-	@echo "raft-kv - Makefile targets:"
+	@echo "raftkv - Makefile targets:"
 	@echo ""
 	@echo "  make build          - Build release binaries"
 	@echo "  make test           - Run all tests"
@@ -37,14 +37,14 @@ clean:
 	rm -rf coord-data/ vol*-data/ vol*-wal/
 
 run-coord:
-	cargo run --release --bin raft-kv-coord -- serve \
+	cargo run --release --bin raftkv-coord -- serve \
 		--id coord-1 \
 		--bind 0.0.0.0:5000 \
 		--grpc 0.0.0.0:5001 \
 		--db ./coord-data
 
 run-volume:
-	cargo run --release --bin minikv-volume -- serve \
+	cargo run --release --bin raftkv-volume -- serve \
 		--id vol-1 \
 		--bind 0.0.0.0:6000 \
 		--grpc 0.0.0.0:6001 \
@@ -56,8 +56,8 @@ benchmark:
 	./scripts/benchmark.sh
 
 docker-build:
-	docker build -f Dockerfile.coordinator -t raft-kv-coord:latest .
-	docker build -f Dockerfile.volume -t raft-kv-volume:latest .
+	docker build -f Dockerfile.coordinator -t raftkv-coord:latest .
+	docker build -f Dockerfile.volume -t raftkv-volume:latest .
 
 docker-up:
 	docker-compose up -d

@@ -1,4 +1,4 @@
-//! Configuration for minikv components
+//! Configuration for raftkv components
 
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;

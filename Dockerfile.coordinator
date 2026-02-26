@@ -20,7 +20,7 @@ COPY proto ./protobuf
 COPY src ./src
 
 # Build coordinator binary 
-RUN cargo build --release --bin raft-kv-coord
+RUN cargo build --release --bin raftkv-coord
 
 # Runtime stage
 FROM debian:bookworm-slim
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy binary
-COPY --from=builder /app/target/release/raft-kv-coord /usr/local/bin/raft-kv-coord
+COPY --from=builder /app/target/release/raftkv-coord /usr/local/bin/raftkv-coord
 
 # Create data directory
 RUN mkdir -p /data

@@ -19,7 +19,7 @@ COPY proto ./proto
 COPY src ./src
 
 # Build volume binary
-RUN cargo build -release -bin raft-kv-volume
+RUN cargo build -release -bin raftkv-volume
 
 # Runtime stage
 FROM debian:bookworm-slim
@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy binary
-COPY --from=builder /app/target/release/raft-kv-volume /usr/local/bin/raft-kv-volume
+COPY --from=builder /app/target/release/raftkv-volume /usr/local/bin/raftkv-volume
 
 # Create data directories
 RUN mkdir -p /data/blobs /data/wal
