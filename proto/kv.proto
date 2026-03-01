@@ -22,8 +22,8 @@ service VolumeInternal {
 service CoordinatorInternal {
     // Raft RPCs
     rpc RequestVote(VoteRequest) returns (VoteResponse);
-    rpc AppendEntries(AppendRequest) return (AppendResponse);
-    rpc InstallSnapshot(SnapshotRequest) retuns (SnapshotResponse);
+    rpc AppendEntries(AppendRequest) returns (AppendResponse);
+    rpc InstallSnapshot(SnapshotRequest) returns (SnapshotResponse);
 
     // Volume registration
     rpc Join(JoinRequest) returns (JoinResponse);
@@ -140,7 +140,7 @@ message SnapshotRequest {
 }
 
 message SnapshotResponse {
-    uint64 term = 1
+    uint64 term = 1;
 }
 
 message LogEntry {
