@@ -201,7 +201,7 @@ mod tests {
 
     #[test]
     fn test_blob_prefix() {
-        let key = "my-blob-key"
+        let key = "my-blob-key";
         let (aa, bb) = blob_prefix(key);
         assert_eq!(aa.len(), 2);
         assert_eq!(bb.len(), 2);

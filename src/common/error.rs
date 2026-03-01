@@ -2,7 +2,7 @@
 
 use thiserror::Error;
 
-pub type Result<T> = std::result::Result<T, Error>
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -36,6 +36,9 @@ pub enum Error {
     // === 2PC Errors ===
     #[error("Prepare failed on {node}: {reason}")]
     PrepareFailed { node: String, reason: String },
+
+    #[error("Commit failed on {node}: {reason}")]
+    CommitFailed { node: String, reason: String },
 
     // === Placement Errors ===
     #[error("No healthy volumes available")]
@@ -90,7 +93,7 @@ pub enum Error {
 }
 
 impl Error {
-    /// Is this a retryable error ?
+    /// Is this a retryable error?
     pub fn is_retryable(&self) -> bool {
         matches!(
             self,
@@ -130,7 +133,6 @@ impl Error {
     /// Convert to HTTP status code
     pub fn to_http_status(&self) -> axum::http::StatusCode {
         use axum::http::StatusCode;
-
         match self {
             Error::NotFound(_) => StatusCode::NOT_FOUND,
             Error::NotLeader(_) => StatusCode::TEMPORARY_REDIRECT,
@@ -144,7 +146,7 @@ impl Error {
     }
 }
 
-/// Implement From for common error types
+// Implement From for common error types
 impl From<&str> for Error {
     fn from(s: &str) -> Self {
         Error::Other(s.to_string())
@@ -160,5 +162,11 @@ impl From<String> for Error {
 impl From<anyhow::Error> for Error {
     fn from(e: anyhow::Error) -> Self {
         Error::Other(e.to_string())
+    }
+}
+
+impl From<serde_json::Error> for Error {
+    fn from(e: serde_json::Error) -> Self {
+        Error::Other(format!("JSON error: {}", e))
     }
 }

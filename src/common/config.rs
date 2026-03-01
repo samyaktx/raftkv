@@ -16,7 +16,7 @@ pub struct Config {
 
     /// Coordinator-specific config
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub coordinator: Option<CoodinatorConfig>,
+    pub coordinator: Option<CoordinatorConfig>,
 
     /// Volume-specific config
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,7 +40,7 @@ pub enum NodeRole {
 
 /// Coordinator configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct CoodinatorConfig {
+pub struct CoordinatorConfig {
     /// Bind address for HTTP API
     pub bind_addr: SocketAddr,
 
@@ -94,7 +94,7 @@ fn default_num_shards() -> u64 {
     256
 }
 
-impl Default for CoodinatorConfig {
+impl Default for CoordinatorConfig {
     fn default() -> Self {
         Self { 
             bind_addr: "0.0.0.0:5000".parse().unwrap(), 
@@ -165,7 +165,7 @@ fn default_compaction_interval() -> u64 {
     300  // 5 minutes
 }
 
-fn default_compaction_threshold() -> u64 {
+fn default_compaction_threshold() -> usize {
     10
 }
 
@@ -177,6 +177,8 @@ fn default_true() -> bool {
     true
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum WalSyncPolicy {
     /// fsync after every write
     Always,
@@ -253,13 +255,13 @@ impl Config {
     /// Save to file
     pub fn to_file(&self, path: impl AsRef<std::path::Path>) -> crate::Result<()> {
         let content = serde_json::to_string_pretty(self)?;
-        std::fs::write(path, contents)?;
+        std::fs::write(path, content)?;
         Ok(())
     }
 
     /// Validate configuration
     pub fn validate(&self) -> crate::Result<()> {
-        is self.node_id.is_empty() {
+        if self.node_id.is_empty() {
             return Err(crate::Error::InvalidConfig("node_id is required".into()));
         }
 

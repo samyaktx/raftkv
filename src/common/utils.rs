@@ -1,6 +1,5 @@
 //! Utility functions for raftkv
 
-use anyhow::Ok;
 use percent_encoding::{percent_decode_str, utf8_percent_encode, AsciiSet, CONTROLS};
 use serde::{Deserialize, Serialize};
 use std::time::{SystemTime, UNIX_EPOCH, Duration};
@@ -204,7 +203,7 @@ mod tests {
 
     #[test]
     fn test_encode_decode_key() {
-        let key = "mu/path/to/file.txt"
+        let key = "mu/path/to/file.txt";
         let encoded = encode_key(key);
         assert!(encoded.contains("%2F")); // '/' is encoded
 
@@ -254,7 +253,7 @@ mod tests {
     #[test]
     fn test_generate_upload_id() {
         let id1 = generate_upload_id();
-        let id1 = generate_upload_id();
+        let id2 = generate_upload_id();
         assert_ne!(id1, id2);
         assert!(id1.contains('-'));
     }
