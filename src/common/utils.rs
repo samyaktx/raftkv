@@ -50,7 +50,7 @@ pub fn parse_duration(s: &str) -> crate::Result<std::time::Duration> {
     let (num_str, unit) = if s.ends_with("ms") {
         (&s[..s.len() - 2], "ms")
     } else {
-        let unit = s.chars().last().unwrap();
+        let _ = s.chars().last().unwrap();
         (&s[..s.len() - 1], &s[s.len() - 1..])
     };
 

@@ -183,7 +183,7 @@ pub enum WalSyncPolicy {
     /// fsync after every write
     Always,
     /// fsync periodically
-    Internal,
+    Interval,
     /// Never fsync (fastest, least durable)
     Never,
 }

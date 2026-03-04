@@ -5,7 +5,7 @@ package raftkv;
 // Internal volume service (coordinator -> volume)
 service VolumeInternal {
     // 2PC write protocol
-    rpc Prepate(PrepareRequest) returns (PrepareResponse);
+    rpc Prepare(PrepareRequest) returns (PrepareResponse);
     rpc Commit(CommitRequest) returns (CommitResponse);
     rpc Abort(AbortRequest) returns (AbortResponse);
 
