@@ -91,7 +91,7 @@ pub fn blob_prefix(key: &str) -> (String, String) {
 /// Maps keys to shards, and shards to nodes. Supports rebalancing
 /// when nodes are added/removed.
 pub struct ConsistentHashRing {
-    num_shards: u64,
+    pub num_shards: u64,
     shard_to_nodes: HashMap<u64, Vec<String>>,
 }
 
