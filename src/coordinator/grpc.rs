@@ -1,6 +1,13 @@
 //! Coordinator gRPC service (internal)
 
-use crate::proto::{AppendRequest, AppendResponse, HeartbeatRequest, HeartbeatResponse, JoinRequest, JoinResponse, SnapshotRequest, SnapshotResponse, VoteRequest, VoteResponse, coordinator_internal_server::CoordinatorInternal};
+use crate::proto::{
+    AppendRequest, AppendResponse, 
+    HeartbeatRequest, HeartbeatResponse, 
+    JoinRequest, JoinResponse, 
+    SnapshotRequest, SnapshotResponse, 
+    VoteRequest, VoteResponse, 
+    coordinator_internal_server::{CoordinatorInternal, CoordinatorInternalServer}
+};
 
 use tonic::{Request, Response, Status};
 
@@ -9,6 +16,10 @@ pub struct CoordGrpcService {}
 impl CoordGrpcService {
     pub fn new() -> Self {
         Self {}
+    }
+
+    pub fn into_server(self) -> CoordinatorInternalServer<Self> {
+        CoordinatorInternalServer::new(self)
     }
 }
 

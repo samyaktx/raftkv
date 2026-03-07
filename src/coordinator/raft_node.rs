@@ -117,21 +117,22 @@ impl RaftNode {
         Ok(())
     }
 
-    /// Start Raft background tasks (heartbeats, elections)
-    pub fn start_raft_tasks(node: Arc<RaftNode>) -> tokio::task::JoinHandle<()> {
-        tokio::spawn(async move {
-            // For single-node testing, just become leader immediately
-            node.become_leader();
-            tracing::info!("Raft node {} is now leader", node.node_id);
-            
-            // In produciton, this would:
-            // - Send heartbeats to followers
-            // - Handle election timeouts
-            // - Manage log replication
-            
-            loop {
-                tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
-            }
-        })
-    }
+}
+
+/// Start Raft background tasks (heartbeats, elections)
+pub fn start_raft_tasks(node: Arc<RaftNode>) -> tokio::task::JoinHandle<()> {
+    tokio::spawn(async move {
+        // For single-node testing, just become leader immediately
+        node.become_leader();
+        tracing::info!("Raft node {} is now leader", node.node_id);
+        
+        // In produciton, this would:
+        // - Send heartbeats to followers
+        // - Handle election timeouts
+        // - Manage log replication
+        
+        loop {
+            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+        }
+    })
 }
